@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(200, 60%, 92%); /* soft-sky-blue */
+  --foreground: hsl(25, 67%, 27%); /* dark-brown */
+  --muted: hsl(47, 36%, 95%); /* creamy-beige */
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(25, 67%, 27%);
+  --card: hsl(47, 36%, 95%); /* creamy-beige */
+  --card-foreground: hsl(25, 67%, 27%);
+  --border: hsl(30, 38%, 82%);
+  --input: hsl(47, 36%, 95%);
+  --primary: hsl(20, 100%, 63%); /* golden-retriever */
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(160, 60%, 75%); /* mint-green */
+  --secondary-foreground: hsl(25, 67%, 27%);
+  --accent: hsl(30, 85%, 80%); /* warm-peach */
+  --accent-foreground: hsl(25, 67%, 27%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(25, 67%, 27%);
+  --radius: 0.75rem;
+  
+  /* Custom cartoon colors */
+  --soft-sky-blue: hsl(200, 60%, 92%);
+  --creamy-beige: hsl(47, 36%, 95%);
+  --warm-peach: hsl(30, 85%, 80%);
+  --mint-green: hsl(160, 60%, 75%);
+  --dark-brown: hsl(25, 67%, 27%);
+  --golden-retriever: hsl(20, 100%, 63%);
+  --grass-green: hsl(110, 50%, 70%);
+  --cloud-white: hsl(0, 0%, 98%);
+}
+
+/* Removed dark mode styles - keeping light cartoon theme only */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .pixel-border {
+    border-width: 3px;
+    border-style: solid;
+    image-rendering: pixelated;
+  }
+  
+  .message-bubble {
+    position: relative;
+    border-width: 2px;
+    border-style: solid;
+  }
+  
+  .message-bubble::before {
+    content: '🐾';
+    position: absolute;
+    font-size: 0.7em;
+    opacity: 0.6;
+  }
+  
+  .user-bubble::before {
+    right: -12px;
+    bottom: 4px;
+    transform: rotate(15deg);
+  }
+  
+  .bot-bubble::before {
+    left: -12px;
+    bottom: 4px;
+    transform: rotate(-15deg);
+  }
+  
+  .dog-bowl-input {
+    border-radius: 25px;
+    background: hsl(var(--creamy-beige));
+    border: 3px solid hsl(var(--dark-brown));
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  
+  .dog-bowl-input::before {
+    content: '🦴';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+  }
+  
+  .paw-button {
+    background: radial-gradient(circle at 30% 30%, hsl(var(--golden-retriever)), hsl(var(--dark-brown)));
+    border-radius: 50%;
+    position: relative;
+    border: 3px solid hsl(var(--dark-brown));
+    transition: all 0.2s ease;
+  }
+  
+  .paw-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+  }
+  
+  .dark .paw-button {
+    background: radial-gradient(circle at 30% 30%, hsl(var(--glow-cyan)), hsl(264, 69%, 51%));
+    border-color: hsl(var(--glow-cyan));
+  }
+  
+  .paw-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .paw-button:active {
+    transform: scale(0.95);
+  }
+  
+  .bg-pattern {
+    background: 
+      /* Clouds */
+      radial-gradient(ellipse 80px 40px at 20% 20%, hsl(var(--cloud-white)) 40%, transparent 50%),
+      radial-gradient(ellipse 60px 30px at 70% 30%, hsl(var(--cloud-white)) 40%, transparent 50%),
+      radial-gradient(ellipse 100px 50px at 40% 10%, hsl(var(--cloud-white)) 30%, transparent 40%),
+      /* Grass at bottom */
+      linear-gradient(to top, hsl(var(--grass-green)) 0%, transparent 15%),
+      /* Base gradient */
+      linear-gradient(to bottom, hsl(var(--soft-sky-blue)) 0%, hsl(var(--creamy-beige)) 100%);
+    background-size: 
+      300px 150px, 
+      250px 120px, 
+      400px 200px,
+      100% 100px,
+      100% 100%;
+    background-position: 
+      0% 0%, 
+      100% 0%, 
+      50% 0%,
+      0% 100%,
+      0% 0%;
+    background-repeat: repeat-x, repeat-x, repeat-x, repeat-x, no-repeat;
+    animation: cloudFloat 20s ease-in-out infinite;
+  }
+  
+  @keyframes cloudFloat {
+    0%, 100% { background-position: 0% 0%, 100% 0%, 50% 0%, 0% 100%, 0% 0%; }
+    50% { background-position: 10% 0%, 110% 0%, 60% 0%, 0% 100%, 0% 0%; }
+  }
+  
+  .sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+  
+  @keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  
+  .emoji-float {
+    animation: emojiFloat 3s ease-in-out infinite;
+  }
+  
+  @keyframes emojiFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(5deg); }
+    66% { transform: translateY(5px) rotate(-3deg); }
+  }
+}
+
+@layer utilities {
+  .animate-blink {
+    animation: blink 3s infinite;
+  }
+  
+  .animate-wag {
+    animation: wag 1s ease-in-out infinite;
+    transform-origin: top;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes wag {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes bounceGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes glow {
+  from { 
+    box-shadow: 0 0 5px hsl(var(--glow-cyan)), 0 0 10px hsl(var(--glow-cyan)), 0 0 15px hsl(var(--glow-cyan)); 
+  }
+  to { 
+    box-shadow: 0 0 10px hsl(var(--glow-cyan)), 0 0 20px hsl(var(--glow-cyan)), 0 0 30px hsl(var(--glow-cyan)); 
+  }
+}
